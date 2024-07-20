@@ -12,6 +12,7 @@ public class Main
 	{
 		System.out.println("Hello World");
 		System.out.println("Line 2 - Brendan");
+		System.out.println("Line 3 - Brendan 2");
 		
 	}
 	//end main
