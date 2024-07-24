@@ -108,4 +108,18 @@ public class Main {
     public static void startStop() {
         System.out.println("START CLICKED");
     }
+    
+    public static JPanel createMainDisplay() {
+        JPanel panel = new JPanel();
+        panel.setBackground(Color.BLACK); // Example, set background color
+        panel.setPreferredSize(new Dimension(500, 500)); // Example size
+        return panel;
+    }
+
+    public static void showDisplay(JFrame frame, JPanel mainDisplayPanel) {
+        frame.getContentPane().removeAll(); // Remove all components from the content pane
+        frame.add(mainDisplayPanel, BorderLayout.CENTER);
+        frame.revalidate();
+        frame.repaint();
+    }
 }

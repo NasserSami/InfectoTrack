@@ -13,10 +13,18 @@ public class JMainMenu extends JMenuItem implements MenuElement, Accessible {
     JMenu mainMenu, fileMenu;
     JMenuItem item1, item2, item3, item4, item5;
     JPanel currentPanel = null; // Track the currently visible panel
+    JFrame frame;
+    JPanel mainDisplayPanel; // Panel for the main display
 
     public JMainMenu() {
-        JFrame f = new JFrame("Menu Frame example");
-        f.setFont(customFont);
+        frame = new JFrame("Menu Frame example");
+        frame.setFont(customFont);
+        frame.setSize(500, 500);
+        frame.setLayout(new BorderLayout());
+
+        // Initialize and show the main display panel
+        mainDisplayPanel = Main.createMainDisplay();
+        Main.showDisplay(frame, mainDisplayPanel); // Initially show the main display
 
         JMenuBar mb = new JMenuBar();
         mb.setBackground(menuBarBackgroundColor); // Set background color
@@ -47,18 +55,23 @@ public class JMainMenu extends JMenuItem implements MenuElement, Accessible {
         item2 = new CustomMenuItemUI("About");
         item2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                showPanel(f, new About(), BorderLayout.WEST, new Dimension(200, 200));
+                switchPanel(new About(), BorderLayout.CENTER, new Dimension(200, 200));
             }
         });
 
         item3 = new CustomMenuItemUI("Members");
         item3.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                showPanel(f, new Members(), BorderLayout.EAST, new Dimension(400, 200));
+                switchPanel(new Members(), BorderLayout.CENTER, new Dimension(400, 200));
             }
         });
 
         item4 = new CustomMenuItemUI("Main Screen");
+        item4.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                switchPanel(mainDisplayPanel, BorderLayout.CENTER, new Dimension(500, 500));
+            }
+        });
 
         fileMenu.add(item5);
         mainMenu.add(item1);
@@ -68,16 +81,13 @@ public class JMainMenu extends JMenuItem implements MenuElement, Accessible {
 
         mb.add(fileMenu);
         mb.add(mainMenu);
-        
-        mb.setPreferredSize(new Dimension(300, 40));
 
-        f.setJMenuBar(mb);
-        f.setSize(500, 500);
-        f.setLayout(new BorderLayout());
-        f.setVisible(true);
+        mb.setPreferredSize(new Dimension(300, 40));
+        frame.setJMenuBar(mb);
+        frame.setVisible(true);
     }
 
-    private void showPanel(JFrame frame, JPanel panel, String position, Dimension size) {
+    private void switchPanel(JPanel panel, String position, Dimension size) {
         if (currentPanel != null) {
             frame.remove(currentPanel);
         }
@@ -89,6 +99,6 @@ public class JMainMenu extends JMenuItem implements MenuElement, Accessible {
     }
 
     public static void main(String[] args) {
-        new JMainMenu();
+        SwingUtilities.invokeLater(() -> new JMainMenu());
     }
 }
