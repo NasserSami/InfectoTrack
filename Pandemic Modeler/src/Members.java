@@ -2,10 +2,13 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Members extends JPanel {
+	
+    Font customFont = new Font("Arial", Font.PLAIN, 14);
+
     public Members() {
         setBackground(Color.LIGHT_GRAY);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
+       
         // Sample data
         String[][] members = {
             {"Nikolas Peesker", "n_peesker@fanshaweonline.ca"},
@@ -25,7 +28,9 @@ public class Members extends JPanel {
         panel.setBackground(Color.LIGHT_GRAY);
 
         JLabel nameLabel = new JLabel(name);
+        nameLabel.setFont(customFont);
         JLabel emailLabel = new JLabel(email);
+        emailLabel.setFont(customFont);
         emailLabel.setForeground(Color.GRAY);
 
         JPanel emailPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -33,7 +38,7 @@ public class Members extends JPanel {
         emailPanel.add(emailLabel);
 
         panel.add(nameLabel, BorderLayout.WEST);
-        panel.add(emailPanel, BorderLayout.CENTER);
+        panel.add(emailPanel, BorderLayout.SOUTH);
 
         return panel;
     }

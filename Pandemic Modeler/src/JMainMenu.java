@@ -5,16 +5,22 @@ import java.awt.event.*;
 
 public class JMainMenu extends JMenuItem implements MenuElement, Accessible {
 
+    Font customFont = new Font("Arial", Font.PLAIN, 14);
+
     JMenu mainMenu, subMenu, fileMenu;
     JMenuItem item1, item2, item3, item4, item5;
     JPanel currentPanel = null; // Track the currently visible panel
 
     public JMainMenu() {
         JFrame f = new JFrame("Menu Frame example");
+        f.setFont(customFont);
         JMenuBar mb = new JMenuBar();
         fileMenu = new JMenu("File");
+        fileMenu.setFont(customFont);
         mainMenu = new JMenu("Main Menu");
+        mainMenu.setFont(customFont);
         subMenu = new JMenu("Sub Menu");
+        subMenu.setFont(customFont);
 
         item5 = new JMenuItem("Export as");
         item5.addActionListener(new ActionListener() {
@@ -41,7 +47,7 @@ public class JMainMenu extends JMenuItem implements MenuElement, Accessible {
         item3 = new JMenuItem("Members");
         item3.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                showPanel(f, new Members(), BorderLayout.EAST, new Dimension(300, 200));
+                showPanel(f, new Members(), BorderLayout.EAST, new Dimension(400, 200));
             }
         });
 
@@ -57,6 +63,13 @@ public class JMainMenu extends JMenuItem implements MenuElement, Accessible {
         mb.add(fileMenu);
         
         mb.add(mainMenu);
+        
+        item1.setFont(customFont);
+        item2.setFont(customFont);
+        item3.setFont(customFont);
+        item4.setFont(customFont);
+        item5.setFont(customFont);
+        //item6.setFont(customFont);
 
         f.setJMenuBar(mb);
         f.setSize(500, 500);
