@@ -13,26 +13,38 @@ public class Main {
     }
 
     public static void exportFile() {
+        Font customFont = new Font("Arial", Font.PLAIN, 14);
+
         JFrame frame = new JFrame("Export Wizard");
+        frame.setFont(customFont);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(400, 400);
         frame.setLayout(new BorderLayout());
-
+        
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
         // File Name Field
         JPanel fileNamePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        fileNamePanel.add(new JLabel("File Name:"));
+        JLabel fileNameLabel = new JLabel("File Name:");
+        fileNameLabel.setFont(customFont);
+        fileNamePanel.add(fileNameLabel);
+        fileNamePanel.setFont(customFont);
         JTextField fileNameField = new JTextField(20);
+        fileNameField.setFont(customFont);
         fileNamePanel.add(fileNameField);
         panel.add(fileNamePanel);
 
         // Folder Save Path
         JPanel pathPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        pathPanel.add(new JLabel("Save Path:"));
+        JLabel pathPanelLabel = new JLabel("Save Path:");
+        pathPanelLabel.setFont(customFont);
+        pathPanel.add(pathPanelLabel);
+        pathPanel.setFont(customFont);
         JTextField pathField = new JTextField(20);
+        pathField.setFont(customFont);
         JButton browseButton = new JButton("Browse");
+        browseButton.setFont(customFont);
         pathPanel.add(pathField);
         pathPanel.add(browseButton);
         panel.add(pathPanel);
@@ -41,6 +53,7 @@ public class Main {
         JCheckBox[] checkBoxes = new JCheckBox[7];
         for (int i = 0; i < checkBoxes.length; i++) {
             checkBoxes[i] = new JCheckBox("Include data " + (i + 1));
+            checkBoxes[i].setFont(customFont);
             panel.add(checkBoxes[i]);
         }
 
@@ -54,12 +67,14 @@ public class Main {
                 if (option == JFileChooser.APPROVE_OPTION) {
                     File selectedFile = fileChooser.getSelectedFile();
                     pathField.setText(selectedFile.getAbsolutePath());
+                    pathField.setFont(customFont);
                 }
             }
         });
 
         // Export Button
         JButton exportButton = new JButton("Export");
+        exportButton.setFont(customFont);
         exportButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

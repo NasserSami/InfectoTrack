@@ -1,35 +1,42 @@
-import java.awt.*;
 import javax.accessibility.Accessible;
 import javax.swing.*;
-import java.awt.event.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class JMainMenu extends JMenuItem implements MenuElement, Accessible {
 
     Font customFont = new Font("Arial", Font.PLAIN, 14);
+    Color menuBarBackgroundColor = new Color(0x333333); // Dark gray background
+    Color menuTextColor = Color.WHITE; // White text color
 
-    JMenu mainMenu, subMenu, fileMenu;
+    JMenu mainMenu, fileMenu;
     JMenuItem item1, item2, item3, item4, item5;
     JPanel currentPanel = null; // Track the currently visible panel
 
     public JMainMenu() {
         JFrame f = new JFrame("Menu Frame example");
         f.setFont(customFont);
-        JMenuBar mb = new JMenuBar();
-        fileMenu = new JMenu("File");
-        fileMenu.setFont(customFont);
-        mainMenu = new JMenu("Main Menu");
-        mainMenu.setFont(customFont);
-        subMenu = new JMenu("Sub Menu");
-        subMenu.setFont(customFont);
 
-        item5 = new JMenuItem("Export as");
+        JMenuBar mb = new JMenuBar();
+        mb.setBackground(menuBarBackgroundColor); // Set background color
+
+        fileMenu = new CustomMenuUI("File");
+        fileMenu.setBackground(menuBarBackgroundColor); // Set background color
+        fileMenu.setForeground(menuTextColor); // Set text color
+
+        mainMenu = new CustomMenuUI("Main Menu");
+        mainMenu.setBackground(menuBarBackgroundColor); // Set background color
+        mainMenu.setForeground(menuTextColor); // Set text color
+
+        item5 = new CustomMenuItemUI("Export as");
         item5.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 Main.exportFile();
             }
         });
 
-        item1 = new JMenuItem("Start / Stop");
+        item1 = new CustomMenuItemUI("Start / Stop");
         item1.setIcon(new ImageIcon("startbutton.png"));
         item1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -37,21 +44,21 @@ public class JMainMenu extends JMenuItem implements MenuElement, Accessible {
             }
         });
 
-        item2 = new JMenuItem("About");
+        item2 = new CustomMenuItemUI("About");
         item2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 showPanel(f, new About(), BorderLayout.WEST, new Dimension(200, 200));
             }
         });
 
-        item3 = new JMenuItem("Members");
+        item3 = new CustomMenuItemUI("Members");
         item3.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 showPanel(f, new Members(), BorderLayout.EAST, new Dimension(400, 200));
             }
         });
 
-        item4 = new JMenuItem("Main Screen");
+        item4 = new CustomMenuItemUI("Main Screen");
 
         fileMenu.add(item5);
         mainMenu.add(item1);
@@ -59,17 +66,10 @@ public class JMainMenu extends JMenuItem implements MenuElement, Accessible {
         mainMenu.add(item3);
         mainMenu.add(item4);
 
-        //mainMenu.add(subMenu);
         mb.add(fileMenu);
-        
         mb.add(mainMenu);
         
-        item1.setFont(customFont);
-        item2.setFont(customFont);
-        item3.setFont(customFont);
-        item4.setFont(customFont);
-        item5.setFont(customFont);
-        //item6.setFont(customFont);
+        mb.setPreferredSize(new Dimension(300, 40));
 
         f.setJMenuBar(mb);
         f.setSize(500, 500);
